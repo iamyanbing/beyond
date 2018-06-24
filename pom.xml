@@ -13,5 +13,51 @@
         <module>app</module>
     </modules>
 
+    <properties>
+        <slf4j.version>1.7.25</slf4j.version>
+        <logback.version>1.2.3</logback.version>
+        <httpclient.version>4.5.5</httpclient.version>
+        <bouncycastle.version>1.59</bouncycastle.version>
+    </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <!-- ================================================= -->
+            <!-- 日志包 -->
+            <!-- ================================================= -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <!-- slf4j的实现：logback，用来取代log4j。更快、更强！ -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <!-- ================================================= -->
+            <!-- cipher suite -->
+            <!-- ================================================= -->
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bctls-jdk15on</artifactId>
+                <version>${bouncycastle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk15on</artifactId>
+                <version>${bouncycastle.version}</version>
+            </dependency>
+            <!-- ================================================= -->
+            <!-- HTTP Client -->
+            <!-- ================================================= -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
