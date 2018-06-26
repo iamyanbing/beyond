@@ -9,11 +9,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>yanbing-utils</artifactId>
+    <artifactId>util</artifactId>
 
     <packaging>jar</packaging>
 
-    <name>yanbing-utils</name>
+    <name>util</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 

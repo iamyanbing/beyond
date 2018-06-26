@@ -26,11 +26,11 @@ public class DateUtilsTest {
     @Test
     public void getUTCByCurrentSystemDate() throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        long utc = DateUtils.convertCurrentSystemZoneDateToUTC(simpleDateFormat.parse("2018-06-24 12:00:00"));
+        long utc = UTCUtils.convertCurrentSystemZoneDateToUTC(simpleDateFormat.parse("2018-06-24 12:00:00"));
         System.out.println(new Date(utc));
         System.out.println(utc);
 
-        long utcNull = DateUtils.convertCurrentSystemZoneDateToUTC(null);
+        long utcNull = UTCUtils.convertCurrentSystemZoneDateToUTC(null);
         System.out.println(new Date(utcNull));
         System.out.println(utcNull);
     }
@@ -38,6 +38,6 @@ public class DateUtilsTest {
     @Ignore
     @Test
     public void getUTConvertToCurrentSystemZoneDate() throws ParseException {
-        System.out.println(DateUtils.getCurrentSystmZoneDateByUTC("2018/05/08 12:00:00"));
+        System.out.println(UTCUtils.getCurrentSystmZoneDateByUTC("2018/05/08 12:00:00"));
     }
 }

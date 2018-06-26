@@ -10,7 +10,7 @@ import java.util.TimeZone;
  * @Auther: yanbing
  * @Date: 2018/6/24 11:07
  */
-public class DateUtils {
+public class UTCUtils {
 
     /**
      * 根据当前系统时区把指定时间转换为UTC时间

@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>yanbing-app</artifactId>
+    <artifactId>app</artifactId>
     <packaging>war</packaging>
 
     <name>yanbing-app Maven Webapp</name>
@@ -30,7 +30,7 @@
         </dependency>
         <dependency>
             <groupId>com.beyond</groupId>
-            <artifactId>yanbing-utils</artifactId>
+            <artifactId>util</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
