@@ -18,6 +18,7 @@
         <logback.version>1.2.3</logback.version>
         <httpclient.version>4.5.5</httpclient.version>
         <bouncycastle.version>1.59</bouncycastle.version>
+        <jackson.version>2.9.6</jackson.version>
     </properties>
 
     <dependencyManagement>
@@ -68,6 +69,41 @@
                 <artifactId>httpclient</artifactId>
                 <version>${httpclient.version}</version>
             </dependency>
+            <!-- ================================================= -->
+            <!-- alibaba fastjson -->
+            <!-- ================================================= -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.47</version>
+            </dependency>
+            <!-- ================================================= -->
+            <!-- jackson -->
+            <!-- ================================================= -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <!-- ================================================= -->
+            <!-- JAXB -->
+            <!-- ================================================= -->
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>2.3.0</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 </project>

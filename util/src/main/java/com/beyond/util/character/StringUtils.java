@@ -12,6 +12,7 @@ public class StringUtils {
      * unicode转中文
      *
      * @param str:待转换字符串
+     *
      * @return
      */
     public static String decodeUnicode(String str) {
@@ -24,4 +25,9 @@ public class StringUtils {
         }
         return str;
     }
+
+    public static String getStirngValueNull() {
+        return String.valueOf(null);
+    }
+
 }

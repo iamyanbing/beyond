@@ -12,6 +12,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -27,12 +29,15 @@ import java.security.cert.X509Certificate;
 
 /**
  * Http Client工具包调用代码示例
+ *
  * @Auther: yanbing
  * @Date: 2018/6/24 11:07
  */
 public class HttpClientUtils {
+    private static final Logger LOGGER = LoggerFactory.getLogger(HttpClientUtils.class);
     private static RequestConfig requestConfig;
     private static final int MAX_TIMEOUT = 7000;
+
     static {
         RequestConfig.Builder configBuilder = RequestConfig.custom();
         // 设置连接超时
@@ -46,23 +51,28 @@ public class HttpClientUtils {
 
     /**
      * 发送 SSL POST 请求（HTTPS），JSON形式
+     *
      * @param apiUrl API接口URL
-     * @param json JSON对象
+     * @param json   JSON对象
+     *
      * @return
      */
     public static String doPostSSL(String apiUrl, Object json) throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
-        System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2");
         CloseableHttpClient httpclient = createAcceptSelfSignedCertificateClient();
         HttpPost httpPost = new HttpPost(apiUrl);
         CloseableHttpResponse response = null;
         String httpStr = null;
         try {
             httpPost.setConfig(requestConfig);
-            StringEntity stringEntity = new StringEntity(json.toString(),"UTF-8");//解决中文乱码问题
+            StringEntity stringEntity = new StringEntity(json.toString(), "UTF-8");//解决中文乱码问题
             stringEntity.setContentEncoding("UTF-8");
             stringEntity.setContentType("application/json");
             httpPost.setEntity(stringEntity);
             response = httpclient.execute(httpPost);
+            LOGGER.info("ProtocolVersion :" + response.getProtocolVersion());
+            LOGGER.info("StatusCode :" + response.getStatusLine().getStatusCode());
+            LOGGER.info("ReasonPhrase :" + response.getStatusLine().getReasonPhrase());
+            LOGGER.info("StatusLine :" + response.getStatusLine().toString());
             int statusCode = response.getStatusLine().getStatusCode();
             if (statusCode != HttpStatus.SC_OK) {
                 return null;
@@ -84,7 +94,7 @@ public class HttpClientUtils {
     private static CloseableHttpClient createAcceptSelfSignedCertificateClient()
             throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException {
 
-        TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+        TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
             public java.security.cert.X509Certificate[] getAcceptedIssuers() {
                 return new java.security.cert.X509Certificate[]{};
             }
@@ -94,7 +104,7 @@ public class HttpClientUtils {
 
             public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
             }
-        } };
+        }};
         SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
         sslContext.init(null, trustAllCerts, new SecureRandom());
         // use the TrustSelfSignedStrategy to allow Self Signed Certificates

@@ -10,7 +10,7 @@ public class TimeoutAndException {
     /**
      * Junit 提供了一个暂停的方便选项。如果一个测试用例比起指定的毫秒数花费了更多的时间，
      * 那么 Junit 将自动将它标记为失败。timeout 参数和 @Test 注释一起使用。现在让我们看看活动中的 @test(timeout)。
-     *
+     *<p>毫秒；限时测试，可以用来解决死循环问题</p>
      * @throws Exception
      */
     @Test(timeout = 10)

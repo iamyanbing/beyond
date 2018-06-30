@@ -12,6 +12,6 @@ public class DateAlgorithmUtilsTest {
     @Test
     @Ignore
     public void getDateAddAndSAubtract() throws Exception{
-        System.out.println(DateAlgorithmUtils.getDateAddAndSubtract("2018-06-03",25));
+        System.out.println(DateAlgorithmUtils.getDateAddAndSubtract("2018-06-28",25));
     }
 }
