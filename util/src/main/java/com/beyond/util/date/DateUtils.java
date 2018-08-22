@@ -48,6 +48,7 @@ public class DateUtils {
      */
     public static Date getCurrentSystmZoneDateByUTC(String utc) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        //指定待解析时间utc的原始时区是哪个
         sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
         return sdf.parse(utc);
     }

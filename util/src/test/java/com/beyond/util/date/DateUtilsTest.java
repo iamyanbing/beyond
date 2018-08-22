@@ -35,6 +35,11 @@ public class DateUtilsTest {
         System.out.println(utcNull);
     }
 
+    /**
+     * 不带时区的时间转换，SimpleDateFormat在转换前需要指定待解析时间原始时区。
+     *
+     * @throws ParseException
+     */
     @Ignore
     @Test
     public void getUTConvertToCurrentSystemZoneDate() throws ParseException {
@@ -42,7 +47,7 @@ public class DateUtilsTest {
     }
 
     /**
-     * 西八区转东八区
+     * 西八区转东八区。带时区的时间装换，用SimpleDateFormat直接进行解析，用SimpleDateFormat直接进行解析自动转换为系统时区时间
      *
      * @throws ParseException
      */
