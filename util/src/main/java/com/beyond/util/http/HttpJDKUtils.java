@@ -25,6 +25,78 @@ public class HttpJDKUtils {
 
     /**
      * <pre>
+     * Exception(可以通过前几条异常信息判断是否为连接异常)
+     * java.net.SocketTimeoutException
+     * at java.net.SocksSocketImpl.remainingMillis(SocksSocketImpl.java:111)
+     * at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+     * at java.net.Socket.connect(Socket.java:589)
+     * </pre>
+     *
+     * @param request
+     * @param url
+     * @param connectTimeout
+     * @param readTimeout
+     *
+     * @return
+     *
+     * @throws Exception
+     */
+    public static String connectionTimeOut(String request, String url, Integer connectTimeout, Integer readTimeout) throws Exception {
+        return exec(request, url, connectTimeout, readTimeout);
+    }
+
+    /**
+     * <pre>
+     * Exception(可以通过前几条异常信息判断是否为响应异常)
+     * java.net.SocketTimeoutException: Read timed out
+     * at java.net.SocketInputStream.socketRead0(Native Method)
+     * at java.net.SocketInputStream.socketRead(SocketInputStream.java:116)
+     * at java.net.SocketInputStream.read(SocketInputStream.java:170)
+     * at java.net.SocketInputStream.read(SocketInputStream.java:141)
+     * </pre>
+     *
+     * @param request
+     * @param url
+     * @param connectTimeout
+     * @param readTimeout
+     *
+     * @return
+     *
+     * @throws Exception
+     */
+    public static String readTimeOut(String request, String url, Integer connectTimeout, Integer readTimeout) throws Exception {
+        return exec(request, url, connectTimeout, readTimeout);
+    }
+
+    /**
+     * <pre>
+     *     可以通过前几条异常信息和异常类判断是否为 没有连接网络异常
+     * java.net.UnknownHostException: api.cnexps.com
+     * at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:184)
+     * at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+     * at java.net.Socket.connect(Socket.java:589)
+     * at sun.net.NetworkClient.doConnect(NetworkClient.java:175)
+     * </pre>
+     *
+     * @param request
+     * @param url
+     * @param connectTimeout
+     * @param readTimeout
+     *
+     * @return
+     *
+     * @throws Exception
+     */
+    public static String unknownHost(String request, String url, Integer connectTimeout, Integer readTimeout) throws Exception {
+        return exec(request, url, connectTimeout, readTimeout);
+    }
+
+    public static String exec(String request, String url) throws Exception {
+        return exec(request, url, 30 * 1000, 30 * 1000);
+    }
+
+    /**
+     * <pre>
      * https=http+ssl（tls）
      * https需要证书，可以设置跳过证书验证.
      * https通过TCP连接时需要cipher suite；JDK7所支持的cipher suite和JDK8所支持的cipher suite不一样；可以设置TCP连接是传递的cipher suite。
@@ -39,10 +111,10 @@ public class HttpJDKUtils {
      *
      * @throws Exception
      */
-    public static String exec(String request, String url) throws Exception {
+    public static String exec(String request, String url, Integer connectTimeout, Integer readTimeout) throws Exception {
         // Post请求的url，与get不同的是不需要带参数
         URL postUrl = new URL(url);
-        // 打开连接
+        // 打开连接,是否连接网络都可以打开
         HttpsURLConnection connection = (HttpsURLConnection) postUrl.openConnection();
         // Create a trust manager that does not validate certificate chains
         TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
@@ -62,6 +134,7 @@ public class HttpJDKUtils {
         //connection.setSSLSocketFactory(sc.getSocketFactory());
 
         //自定义TCP连接时传递的cipher suite。TLSSocketConnectionFactory : 172
+        //连接网络与否都可以执行这步
         connection.setSSLSocketFactory(new TLSSocketConnectionFactory());
 
         connection.setDefaultHostnameVerifier(
@@ -80,13 +153,14 @@ public class HttpJDKUtils {
         connection.setUseCaches(false);
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("Accept-Charset", "UTF-8");
-        connection.setConnectTimeout(30 * 1000);
-        connection.setReadTimeout(30 * 1000);
+        connection.setConnectTimeout(connectTimeout);
+        connection.setReadTimeout(readTimeout);
         BufferedReader reader = null;
         PrintWriter out = null;
         try {
             // 连接，从postUrl.openConnection()至此的配置必须要在connect之前完成，
             // 要注意的是connection.getOutputStream会隐含的进行connect。
+            //真正去连接URL
             connection.connect();
 
             out = new PrintWriter(connection.getOutputStream());
