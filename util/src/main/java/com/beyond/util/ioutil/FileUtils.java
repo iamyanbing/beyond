@@ -1,4 +1,4 @@
-package com.beyond.util.IOUtil;
+package com.beyond.util.ioutil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

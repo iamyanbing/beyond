@@ -1,7 +1,7 @@
 package com.beyond.util.xml;
 
 import com.beyond.util.xml.vo.Student;
-import com.sun.xml.internal.bind.marshaller.CharacterEscapeHandler;
+import com.sun.xml.bind.marshaller.CharacterEscapeHandler;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
