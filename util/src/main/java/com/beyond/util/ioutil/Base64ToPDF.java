@@ -2,9 +2,8 @@ package com.beyond.util.ioutil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.misc.BASE64Decoder;
-
 import java.io.*;
+import java.util.Base64;
 
 /**
  * @Auther: yanbing
@@ -14,13 +13,13 @@ public class Base64ToPDF {
     private static final Logger LOGGER = LoggerFactory.getLogger(Base64ToPDF.class);
 
     public static void exe(String path, String base64sString) throws Exception {
-        BASE64Decoder decoder = new BASE64Decoder();
+        Base64.Decoder decoder = Base64.getDecoder();
         BufferedInputStream bin = null;
         FileOutputStream fout = null;
         BufferedOutputStream bout = null;
         try {
             // 将base64编码的字符串解码成字节数组
-            byte[] bytes = decoder.decodeBuffer(base64sString);
+            byte[] bytes = decoder.decode(base64sString);
             // apache API
             // byte[] bytes = Base64.decodeBase64(base64sString);
             // 创建一个将bytes作为其缓冲区的ByteArrayInputStream对象

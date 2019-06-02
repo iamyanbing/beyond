@@ -2,9 +2,9 @@ package com.beyond.util.ioutil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.misc.BASE64Encoder;
 
 import java.io.*;
+import java.util.Base64;
 
 /**
  * @Auther: yanbing
@@ -14,7 +14,7 @@ public class PDFToBase64 {
     private static final Logger LOGGER = LoggerFactory.getLogger(PDFToBase64.class);
 
     public static String exe(File file) throws Exception {
-        BASE64Encoder encoder = new BASE64Encoder();
+        Base64.Encoder encoder = Base64.getEncoder();
         FileInputStream fin = null;
         BufferedInputStream bin = null;
         ByteArrayOutputStream baos = null;
@@ -38,7 +38,7 @@ public class PDFToBase64 {
             bout.flush();
             byte[] bytes = baos.toByteArray();
             // sun API
-            return encoder.encodeBuffer(bytes).trim();
+            return encoder.encodeToString(bytes).trim();
             // apache API
             // return Base64.encodeBase64String(bytes);
 
