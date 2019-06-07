@@ -1,5 +1,8 @@
 package com.beyond.util.jdk8;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,32 +34,33 @@ import java.util.function.Supplier;
  *
  */
 public class LambdaFunctionalInterface {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ForkJoin.class);
     public static void exe(){
         //作为参数传递 Lambda 表达式：为了将 Lambda 表达式作为参数传递，接
         //收Lambda 表达式的参数类型必须是与该 Lambda 表达式兼容的函数式接口
         //的类型。
 
-        System.out.println("Consumer<T> 消费型接口 :");
+        LOGGER.info("Consumer<T> 消费型接口 :");
         consumer(10000, (m) -> System.out.println("Consumer<T> :" + m));
 
-        System.out.println("Supplier<T> 供给型接口 :");
+        LOGGER.info("Supplier<T> 供给型接口 :");
         List<Integer> numList = supplier(10, () -> (int)(Math.random() * 100));
         for (Integer num : numList) {
             System.out.println(num);
         }
 
-        System.out.println("Function<T, R> 函数型接口：");
+        LOGGER.info("Function<T, R> 函数型接口：");
         String newStr = function("yan", (str) -> str.trim());
-        System.out.println(newStr);
+        LOGGER.info(newStr);
 
         String subStr = function("bing", (str) -> str.substring(1, 2));
-        System.out.println(subStr);
+        LOGGER.info(subStr);
 
-        System.out.println("Predicate<T> 断言型接口：");
+        LOGGER.info("Predicate<T> 断言型接口：");
         List<String> list = Arrays.asList("Hello", "yanbing", "Lambda", "www", "com");
         List<String> strList = predicate(list, (s) -> s.length() > 3);
         for (String str : strList) {
-            System.out.println(str);
+            LOGGER.info(str);
         }
     }
 

@@ -7,13 +7,15 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.beyond.util.jdk8.entity.Employee.Status;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @Auther: yanbing
  * @Date: 2019/6/2 16:56
  */
 public class StreamAPITerminationOperation {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(ForkJoin.class);
     static List<Employee> emps = Arrays.asList(
             new Employee(102, "李四", 59, 6666.66, Employee.Status.BUSY),
             new Employee(101, "张三", 18, 9999.99, Status.FREE),
@@ -52,7 +54,7 @@ public class StreamAPITerminationOperation {
                 .sorted((e1, e2) -> Double.compare(e1.getSalary(), e2.getSalary()))
                 .findFirst();
         System.out.println(optional.get());
-        System.out.println("--------------------------------");
+        LOGGER.info("--------------------------------");
         Optional<Employee> optional1 = emps.parallelStream()
                 .filter((e) -> e.getStatus().equals(Status.FREE))
                 .findAny();
@@ -96,7 +98,7 @@ public class StreamAPITerminationOperation {
                 .reduce(100, (x, y) -> x + y);
         System.out.println(sum);
 
-        System.out.println("----------------------------------------");
+        LOGGER.info("----------------------------------------");
 
         //为什么返回Optional；因为可能为null，上面的方法指定了一个值，所以不可能为null
         //可能为null的值会封装到Optional中
@@ -105,7 +107,7 @@ public class StreamAPITerminationOperation {
                 .reduce(Double::sum);
         System.out.println(op.get());
 
-        System.out.println("----------------------------------------");
+        LOGGER.info("----------------------------------------");
 
         //需求：搜索名字中 “六” 出现的次数
         Optional<Integer> optional = emps.stream()
@@ -136,7 +138,7 @@ public class StreamAPITerminationOperation {
                 .collect(Collectors.toList());
         list.forEach(System.out::println);
 
-        System.out.println("----------------------------------");
+        LOGGER.info("----------------------------------");
 
         //把流中元素收集到Set
         Set<String> toSet = emps.stream()
@@ -144,7 +146,7 @@ public class StreamAPITerminationOperation {
                 .collect(Collectors.toSet());
         toSet.forEach(System.out::println);
 
-        System.out.println("----------------------------------");
+        LOGGER.info("----------------------------------");
 
         //把流中元素收集到创建的集合
         HashSet<String> toCollection = emps.stream()
@@ -178,7 +180,7 @@ public class StreamAPITerminationOperation {
                 .collect(Collectors.counting());
         System.out.println(counting);
 
-        System.out.println("--------------------------------------------");
+        LOGGER.info("--------------------------------------------");
 
         //收集流中属性的统计值。
         DoubleSummaryStatistics summarizingDouble = emps.stream()
@@ -189,14 +191,14 @@ public class StreamAPITerminationOperation {
         System.out.println(summarizingDouble.getMin());
         System.out.println(summarizingDouble.getSum());
 
-        System.out.println("--------------------------------------------");
+        LOGGER.info("--------------------------------------------");
 
         //分组:根据某属性值对流分组，属性为K，结果为V
         Map<Status, List<Employee>> map = emps.stream()
                 .collect(Collectors.groupingBy(Employee::getStatus));
         System.out.println(map);
 
-        System.out.println("--------------------------------------------");
+        LOGGER.info("--------------------------------------------");
 
         //多级分组;先按状态分，再按年龄段分
         Map<Status, Map<String, List<Employee>>> groupingBy = emps.stream()
@@ -210,22 +212,22 @@ public class StreamAPITerminationOperation {
                 })));
         System.out.println(groupingBy);
 
-        System.out.println("--------------------------------------------");
+        LOGGER.info("--------------------------------------------");
 
         //分区。满足条件一个区，不满足条件另外一个区
         Map<Boolean, List<Employee>> partitioningBy = emps.stream()
                 .collect(Collectors.partitioningBy((e) -> e.getSalary() >= 5000));
         System.out.println(partitioningBy);
 
-        System.out.println("--------------------------------------------");
+        LOGGER.info("--------------------------------------------");
 
         //连接流中每个字符串
         String joining = emps.stream()
                 .map(Employee::getName)
                 .collect(Collectors.joining("," , "----", "----"));
-        System.out.println(joining);
+        LOGGER.info(joining);
 
-        System.out.println("--------------------------------------------");
+        LOGGER.info("--------------------------------------------");
 
         //从一个作为累加器的初始值开始，利用BinaryOperator与流中元素逐个结合，从而归约成单个值
         Optional<Double> reducing = emps.stream()

@@ -1,5 +1,8 @@
 package com.beyond.util.jdk8;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Comparator;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -46,7 +49,7 @@ import java.util.function.Function;
  * 			 可以检查是否是函数式接口
  */
 public class LambdaBase {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(ForkJoin.class);
     public static void exe(){
         //语法格式一：无参数，无返回值
         int num = 0;//jdk 1.7 前，前面必须加final。JDK1.8之后系统会默认加
@@ -57,7 +60,7 @@ public class LambdaBase {
             }
         };
         runnableOriginal.run();
-        System.out.println("-------------------------------");
+        LOGGER.info("-------------------------------");
         Runnable runnableLambda = () -> System.out.println("Hello Lambda!");
         runnableLambda.run();
 

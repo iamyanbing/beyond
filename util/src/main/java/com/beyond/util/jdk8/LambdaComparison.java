@@ -1,12 +1,14 @@
 package com.beyond.util.jdk8;
 
 import com.beyond.util.jdk8.entity.Employee;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.function.Predicate;
 
 public class LambdaComparison {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(ForkJoin.class);
     static List<Employee> emps = Arrays.asList(
             new Employee(101, "张三", 18, 9999.99),
             new Employee(102, "李四", 59, 6666.66),
@@ -41,7 +43,7 @@ public class LambdaComparison {
         List<Employee> list = filterEmployee(emps, (e) -> e.getAge() <= 35);
         list.forEach(System.out::println);
 
-        System.out.println("------------------------------------------");
+        LOGGER.info("------------------------------------------");
 
         List<Employee> list2 = filterEmployee(emps, (e) -> e.getSalary() >= 5000);
         list2.forEach(System.out::println);

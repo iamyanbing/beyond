@@ -1,6 +1,8 @@
 package com.beyond.util.jdk8;
 
 import com.beyond.util.jdk8.entity.Employee;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +14,7 @@ import java.util.stream.Stream;
  * @Date: 2019/6/2 16:21
  */
 public class StreamAPIMiddleOperation {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(ForkJoin.class);
     static List<Employee> emps = Arrays.asList(
             new Employee(102, "李四", 59, 6666.66),
             new Employee(101, "张三", 18, 9999.99),
@@ -39,23 +41,23 @@ public class StreamAPIMiddleOperation {
 
         //只有当做终止操作时，所有的中间操作会一次性的全部执行，称为“惰性求值”
         stream.forEach(System.out::println);
-        System.out.println("--------------------");
+        LOGGER.info("--------------------");
 
         //满足条件之后，后面元素不再判断
         emps.stream()
                 .filter((e) -> {
-                    System.out.println("截断流"); // &&  ||
+                    LOGGER.info("截断流"); // &&  ||
                     return e.getSalary() >= 7000;
                 }).limit(3)
                 .forEach(System.out::println);
-        System.out.println("--------------------");
+        LOGGER.info("--------------------");
         emps.parallelStream()
                 .filter((e) -> {
-                    System.out.println("skip");
+                    LOGGER.info("skip");
                     return e.getSalary() >= 5000;
                 }).skip(2)
                 .forEach(System.out::println);
-        System.out.println("--------------------");
+        LOGGER.info("--------------------");
         emps.stream()
                 .distinct()
                 .forEach(System.out::println);
@@ -72,7 +74,7 @@ public class StreamAPIMiddleOperation {
         Stream<String> str = emps.stream()
                 .map((e) -> e.getName());
 
-        System.out.println("-------------------------------------------");
+        LOGGER.info("-------------------------------------------");
 
         List<String> strList = Arrays.asList("aaa", "bbb", "ccc", "ddd", "eee");
 
@@ -86,10 +88,10 @@ public class StreamAPIMiddleOperation {
         //把lambda中返回的流直接加到要返回的流中
         Stream<Stream<Character>> stream2 = strList.stream()
                 .map(StreamAPIMiddleOperation::filterCharacter);
-        System.out.println("遍历对象-------------------------------------------");
+        LOGGER.info("遍历对象-------------------------------------------");
         stream2.forEach(System.out::println);
 
-        System.out.println("遍历元素-------------------------------------------");
+        LOGGER.info("遍历元素-------------------------------------------");
         Stream<Stream<Character>> streamStream = strList.stream()
                 .map(StreamAPIMiddleOperation::filterCharacter);
         streamStream.forEach((sm) -> {
@@ -114,7 +116,7 @@ public class StreamAPIMiddleOperation {
                 .sorted()
                 .forEach(System.out::println);
 
-        System.out.println("------------------------------------");
+        LOGGER.info("------------------------------------");
 
         emps.stream()
                 .sorted((x, y) -> {

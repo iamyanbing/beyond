@@ -1,4 +1,6 @@
-package com.beyond.util.jdk8.entity;
+package com.beyond.util.jdk8;
+
+import com.beyond.util.jdk8.entity.Employee;
 
 import java.io.PrintStream;
 import java.util.Comparator;

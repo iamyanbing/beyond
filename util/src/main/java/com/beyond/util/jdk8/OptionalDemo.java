@@ -1,6 +1,8 @@
 package com.beyond.util.jdk8;
 
 import com.beyond.util.jdk8.entity.Employee;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 
@@ -23,6 +25,7 @@ import java.util.Optional;
  * 	flatMap(Function mapper):与 map 类似，要求返回值必须是Optional
  */
 public class OptionalDemo {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ForkJoin.class);
     public static void exe(){
         //Optional.of(T t) : 创建一个 Optional 实例
         Optional<Employee> optional = Optional.of(new Employee());
@@ -52,9 +55,9 @@ public class OptionalDemo {
         Optional<Employee> optional2 = Optional.of(new Employee(101, "张三", 18, 9999.99));
 
         Optional<String> optionalS = optional2.map(Employee::getName);
-        System.out.println(optionalS.get());
+        LOGGER.info(optionalS.get());
 
         Optional<String> optionalS1 = optional2.flatMap((e) -> Optional.of(e.getName()));
-        System.out.println(optionalS1.get());
+        LOGGER.info(optionalS1.get());
     }
 }
