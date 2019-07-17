@@ -53,7 +53,7 @@ public class HttpClientUtils {
      *
      * @throws Exception
      */
-    public static String socketTimeout(String apiUrl, Object json) throws Exception {
+    public static String socketTimeout(String apiUrl, String json) throws Exception {
         return doPostSSL(apiUrl, json, MAX_TIMEOUT, 1);
     }
 
@@ -111,7 +111,7 @@ public class HttpClientUtils {
      *
      * @throws Exception
      */
-    public static String connectTimeout(String apiUrl, Object json) throws Exception {
+    public static String connectTimeout(String apiUrl, String json) throws Exception {
         return doPostSSL(apiUrl, json, 1, MAX_TIMEOUT);
     }
 
@@ -134,7 +134,7 @@ public class HttpClientUtils {
      *
      * @throws Exception
      */
-    public static String doPostSSL(String apiUrl, Object json) throws Exception {
+    public static String doPostSSL(String apiUrl, String json) throws Exception {
         return doPostSSL(apiUrl, json, MAX_TIMEOUT, MAX_TIMEOUT);
     }
 
@@ -146,7 +146,7 @@ public class HttpClientUtils {
      *
      * @return
      */
-    public static String doPostSSL(String apiUrl, Object json, Integer connectTimeout, Integer socketTimeout) throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+    public static String doPostSSL(String apiUrl, String json, Integer connectTimeout, Integer socketTimeout) throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
         CloseableHttpClient httpclient = createAcceptSelfSignedCertificateClient();
         HttpPost httpPost = new HttpPost(apiUrl);
         CloseableHttpResponse response = null;

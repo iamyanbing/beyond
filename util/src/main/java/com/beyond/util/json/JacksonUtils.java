@@ -68,6 +68,15 @@ public class JacksonUtils {
         return objectMapper.readValue(jsonArray, Student.class);
     }
 
+    /**
+     * List<Student> ticketItems = objectMapper.readValue(jsonArray, List.class);
+     * 直接按照上面转：
+     * 转换的对象不是Student的实例，是LinkedHashMap对象；属性和值也是LinkedHashMap。
+     * 这样进行其他操作往往会报错
+     * @param jsonArray
+     * @return
+     * @throws Exception
+     */
     public static List<Student> getArrayObjectByJson(String jsonArray) throws Exception {
         JavaType convertToTicketItem = objectMapper.getTypeFactory().constructParametricType(ArrayList.class, Student.class);
         List<Student> ticketItems = (List<Student>) objectMapper.readValue(jsonArray, convertToTicketItem);
