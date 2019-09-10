@@ -11,7 +11,7 @@ public class ExceptionConversionTest {
 
     @Ignore
     @Test
-    public void exe() throws Exception {
+    public void exe() {
         ExceptionConversion.exe();
     }
 }

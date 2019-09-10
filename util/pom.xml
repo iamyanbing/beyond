@@ -88,6 +88,21 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
         </dependency>
+
+        <!-- poi解析Excel XLS文件 -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+
+        <!--poi-ooxml解析 Excel XLSX、PowerPoint PPTX、Word DOCX 、Excel XLS and XLSX 等文件-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -7,7 +7,7 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.Set;
 
 /**
- *  JDK1.8所有和日期时间相关的新API
+ * JDK1.8所有和日期时间相关的新API
  */
 public class NewDateTimeDemo {
 
@@ -25,7 +25,7 @@ public class NewDateTimeDemo {
     /**
      * 每个时区都对应着 ID，地区ID都为 “{区域}/{城市}”的格式。可通过ZoneId获取
      * 例如 ：Asia/Shanghai 等
-     *
+     * <p>
      * ZoneId：该类中包含了所有的时区信息
      * getAvailableZoneIds() : 可以获取所有时区信息 ,即of()方法需要的id值
      * of(id) : 用指定的时区信息获取 ZoneId 对象
@@ -37,6 +37,7 @@ public class NewDateTimeDemo {
 
 
     /**
+     * DateTimeFormatter代替SimpleDateFormat
      * DateTimeFormatter : 解析和格式化日期或时间
      * java.time.format.DateTimeFormatter 类：该类提供了三种格式化方法：
      *  预定义的标准格式
@@ -64,7 +65,7 @@ public class NewDateTimeDemo {
 
     /**
      * TemporalAdjuster : 时间校正器
-     *
+     * <p>
      * TemporalAdjuster : 时间校正器。有时我们可能需要获取例如：将日期调整到“下个周日”等操作。
      * TemporalAdjusters : 该类通过静态方法提供了大量的常用 TemporalAdjuster 的实现。
      */
@@ -130,6 +131,7 @@ public class NewDateTimeDemo {
     }
 
     /**
+     * 使用Instant代替Date
      * 用于“时间戳”的运算。它是以Unix元年(传统的设定为UTC时区1970年1月1日午夜时分)开始所经历的描述进行运算
      */
     public static void exeInstant() {
@@ -152,11 +154,9 @@ public class NewDateTimeDemo {
 
 
     /**
-     * LocalDate、LocalTime、LocalDateTime 类的实
-     * 例是不可变的对象(即线程安全)，分别表示使用 ISO-8601日
-     * 历系统的日期、时间、日期和时间。它们提供
-     * 了简单的日期或时间，并不包含当前的时间信
-     * 息。也不包含与时区相关的信息。
+     * LocalDate、LocalTime、LocalDateTime 类的实例是不可变的对象(即线程安全)，
+     * 分别表示使用 ISO-8601日历系统的日期、时间、日期和时间。它们提供了简单的日期或时间，并不包含当前的时间信息。
+     * 也不包含与时区相关的信息。
      * <p>
      * 注：ISO-8601日历系统是国际标准化组织制定的现代公民的日期和时间的表示法
      * <p>
@@ -165,7 +165,7 @@ public class NewDateTimeDemo {
      * until 获得两个日期之间的 Period 对象，或者指定 ChronoUnits 的数字
      * plus, minus 添加或减少一个 Duration 或 Period
      * <p>
-     * withDayOfMonth,withDayOfYear,withMonth,withYear  将月份天数、年份天数、月份、年份 修 改 为 指 定 的 值 并 返 回 新 的LocalDate 对象
+     * withDayOfMonth,withDayOfYear,withMonth,withYear  将月份天数、年份天数、月份、年份修改为指定的值并返回新的LocalDate对象
      */
     public static void exeLocalDateTime() {
         //静态方法，根据当前时间创建对象
@@ -177,6 +177,7 @@ public class NewDateTimeDemo {
         LocalDateTime ld2 = LocalDateTime.of(2016, 11, 21, 10, 10, 10);
         System.out.println(ld2);
 
+        //LocalDateTime代替Calendar，进行时间的加减运算
         //日期时间加减运算
         //加运算：plusDays, plusWeeks,plusMonths, plusYears
         LocalDateTime ldt3 = ld2.plusYears(20);
