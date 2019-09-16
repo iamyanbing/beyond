@@ -3,6 +3,8 @@ package com.beyond.util.jdk8;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Set;
 
@@ -46,7 +48,7 @@ public class NewDateTimeDemo {
      */
     public static void exeDateTimeFormatter() {
         //使用默认格式
-//		DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE;
+        DateTimeFormatter dtfDefault = DateTimeFormatter.ISO_LOCAL_DATE;
 
         //自定义格式
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy年MM月dd日 HH:mm:ss E");
@@ -113,12 +115,19 @@ public class NewDateTimeDemo {
 
         System.out.println("所耗费时间为：" + Duration.between(ins1, ins2));
         Duration duration = Duration.between(ins1, ins2);
+        //获取这段时间的纳秒差值
         System.out.println("getNano : " + duration.getNano());
+        //获取这段时间的秒差值
         System.out.println("getSeconds : " + duration.getSeconds());
+        //获取这段时间的天差值
         System.out.println("toDays : " + duration.toDays());
+        //获取这段时间的小时差值
         System.out.println("toHours : " + duration.toHours());
+        //获取这段时间的毫秒差值
         System.out.println("toMillis : " + duration.toMillis());
+        //获取这段时间的分钟差值
         System.out.println("toMinutes : " + duration.toMinutes());
+        //获取这段时间的纳秒差值
         System.out.println("toNanos : " + duration.toNanos());
 
         LocalDate ld1 = LocalDate.now();
@@ -142,12 +151,16 @@ public class NewDateTimeDemo {
 //		OffsetDateTime odt = ins.atOffset(ZoneOffset.ofHours(-8));
         System.out.println(odt);
 
-        System.out.println("时间戳：" + ins.toEpochMilli());
+        //Instant.ofEpochMilli()，指定从1970-01-01T00:00:00Z后的多少毫秒
+        System.out.println("" + ins.toEpochMilli());
 
+        //Instant.ofEpochMilli()，指定从1970-01-01T00:00:00Z后的多少秒
+        System.out.println("" + ins.getEpochSecond());
+
+        //指定一个值，计算从1970-01-01T00:00:00Z开始后的多少纳秒
         System.out.println(ins.getNano());
 
-        //指定一个值，计算从1970-01-01T00:00:00Z开始
-        //还有Instant.ofEpochMilli()，指定从1970-01-01T00:00:00Z后的多少毫秒
+        //指定一个值，计算从1970-01-01T00:00:00Z开始后的多少秒
         Instant ins2 = Instant.ofEpochSecond(5);
         System.out.println(ins2);
     }
@@ -182,9 +195,24 @@ public class NewDateTimeDemo {
         //加运算：plusDays, plusWeeks,plusMonths, plusYears
         LocalDateTime ldt3 = ld2.plusYears(20);
         System.out.println(ldt3);
+        LocalDateTime ldt31 = ld2.plus(20, ChronoUnit.YEARS);
+        System.out.println(ldt31);
         //减运算：minusDays, minusWeeks,minusMonths, minusYears
         LocalDateTime ldt4 = ld2.minusMonths(2);
         System.out.println(ldt4);
+
+        // 通过with修改某些值，修改年为2019
+        LocalDateTime localDateTime1 = ld2.withYear(2019);
+        System.out.println(localDateTime1);
+        LocalDateTime localDateTime2 = ld2.with(ChronoField.YEAR, 2019);
+        System.out.println(localDateTime2);
+
+        //firstDayOfMonth():设置为当月的第一天
+        LocalDateTime localDateTime3 = ld2.with(TemporalAdjusters.firstDayOfMonth());
+        System.out.println(localDateTime3);
+        //lastDayOfMonth():设置为当月的最后一天
+        LocalDateTime localDateTime4 = ld2.with(TemporalAdjusters.lastDayOfMonth());
+        System.out.println(localDateTime4);
 
         //getDayOfMonth 获得月份天数(1-31)
         //getDayOfYear 获得年份天数(1-366)
@@ -198,6 +226,10 @@ public class NewDateTimeDemo {
         System.out.println(ldt.getHour());
         System.out.println(ldt.getMinute());
         System.out.println(ldt.getSecond());
+        //getYear 获得年份
+        System.out.println(ldt.get(ChronoField.YEAR));
+        //getDayOfMonth 获得月份天数(1-31)
+        System.out.println(ldt.get(ChronoField.MONTH_OF_YEAR));
     }
 
 }
