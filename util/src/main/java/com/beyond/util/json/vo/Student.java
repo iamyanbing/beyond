@@ -2,11 +2,13 @@ package com.beyond.util.json.vo;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
 /**
  * @Auther: yanbing
  * @Date: 2018/6/30 14:19
  */
+@Data
 public class Student {
     @JsonProperty("Name")
     @JSONField(name = "Name")

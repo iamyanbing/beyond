@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * alibaba fastjson： 优势：json字符串可以不用完全解析，比如json字符串中有Sex字段，解析的时候VO类可以不用有Sex字段。jackjson则VO类必须要有Sex字段
- *
+ * fastjson  bug比较多，推荐Gson和Jackson
  * @Auther: yanbing
  * @Date: 2018/6/30 14:18
  */

@@ -96,6 +96,23 @@
                 <version>${jackson.version}</version>
             </dependency>
             <!-- ================================================= -->
+            <!-- Gson -->
+            <!-- ================================================= -->
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>2.8.5</version>
+            </dependency>
+            <!-- ================================================= -->
+            <!-- lombok -->
+            <!-- ================================================= -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.10</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- ================================================= -->
             <!-- JAXB -->
             <!-- ================================================= -->
             <dependency>
@@ -117,7 +134,100 @@
                 <artifactId>guava</artifactId>
                 <version>27.0.1-jre</version>
             </dependency>
-
+            <!-- ================================================= -->
+            <!-- poi解析Excel XLS文件 -->
+            <!-- ================================================= -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>4.1.0</version>
+            </dependency>
+            <!-- ================================================= -->
+            <!-- poi-ooxml解析 Excel XLSX、PowerPoint PPTX、Word DOCX 、Excel XLS and XLSX 等文件 -->
+            <!-- ================================================= -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>4.1.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+    <build>
+        <!--
+         pluginManagement是表示插件声明，即你在项目中的pluginManagement下声明了插件，Maven不会加载该插件，pluginManagement声明可以被继承
+         pluginManagement一般是用来在父POM中定义，提供给子POM使用，子POM也可以覆盖这个定义，而且你在父POM中定义了版本之后，子模块中直接应用groupId和artifactId，而不用指定版本，同时也方便统一管理；而在父POM中的pluginManagement并不会介入到Maven的生命周期。
+         plugins就是直接引入一个plugin，而且可以绑定到Maven相关的生命周期上。
+         pluginManagement主要是为了统一管理插件，确保所有子POM使用的插件版本保持一致，类似dependencies和dependencyManagement。
+         -->
+        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+            <plugins>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+                <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.0.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.7.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.20.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.0.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.5.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.8.2</version>
+                </plugin>
+                <plugin>
+                    <!-- 在终端执行   mvn source:jar     生成source包 -->
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.0.1</version>
+                    <!-- 绑定source插件到Maven的生命周期,并在生命周期后执行绑定的source的goal -->
+                    <executions>
+                        <execution>
+                            <!-- 绑定source插件到Maven的生命周期 -->
+                            <id>attach-sources</id>
+                            <phase>verify</phase>
+                            <!--在生命周期后执行绑定的source插件的goals -->
+                            <goals>
+                                <goal>jar-no-fork</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <!-- mybatis generator 自动生成代码插件 -->
+                <plugin>
+                    <groupId>org.mybatis.generator</groupId>
+                    <artifactId>mybatis-generator-maven-plugin</artifactId>
+                    <version>1.3.7</version>
+                    <configuration>
+                        <configurationFile>${basedir}/src/main/resources/generatorConfig.xml
+                        </configurationFile>
+                        <overwrite>true</overwrite>
+                        <verbose>true</verbose>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>mysql</groupId>
+                            <artifactId>mysql-connector-java</artifactId>
+                            <version>8.0.17</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
