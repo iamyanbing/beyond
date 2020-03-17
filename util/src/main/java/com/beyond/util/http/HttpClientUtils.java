@@ -1,16 +1,23 @@
 package com.beyond.util.http;
 
+import com.alibaba.fastjson.JSONObject;
 import com.beyond.util.character.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
+import org.apache.http.ParseException;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +26,8 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
@@ -26,6 +35,9 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Http Client工具包调用代码示例
@@ -36,6 +48,8 @@ import java.security.cert.X509Certificate;
 public class HttpClientUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(HttpClientUtils.class);
     private static final int MAX_TIMEOUT = 7000;
+    private static final int CONNECT_TIMEOUT = 10000;
+    private static final int SOCKET_TIMEOUT = 20000;
 
     /**
      * <pre>响应异常：通过前几条异常信息判断
@@ -48,9 +62,7 @@ public class HttpClientUtils {
      *
      * @param apiUrl
      * @param json
-     *
      * @return
-     *
      * @throws Exception
      */
     public static String socketTimeout(String apiUrl, String json) throws Exception {
@@ -106,9 +118,7 @@ public class HttpClientUtils {
      *
      * @param apiUrl
      * @param json
-     *
      * @return
-     *
      * @throws Exception
      */
     public static String connectTimeout(String apiUrl, String json) throws Exception {
@@ -129,9 +139,7 @@ public class HttpClientUtils {
      *
      * @param apiUrl
      * @param json
-     *
      * @return
-     *
      * @throws Exception
      */
     public static String doPostSSL(String apiUrl, String json) throws Exception {
@@ -143,7 +151,6 @@ public class HttpClientUtils {
      *
      * @param apiUrl API接口URL
      * @param json   JSON对象
-     *
      * @return
      */
     public static String doPostSSL(String apiUrl, String json, Integer connectTimeout, Integer socketTimeout) throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
@@ -173,15 +180,17 @@ public class HttpClientUtils {
             LOGGER.info("StatusLine :" + response.getStatusLine().toString());
             int statusCode = response.getStatusLine().getStatusCode();
             if (statusCode != HttpStatus.SC_OK) {
+                LOGGER.warn("请求外部接口异常； url:{} ; json : {} ; 响应状态码 : {}", apiUrl, json, statusCode);
                 return null;
             }
             HttpEntity entity = response.getEntity();
             if (entity == null) {
+                LOGGER.warn("请求外部接口异常； url:{} ; json : {} ; 响应状态码 : {} ; 响应实体为空", apiUrl, json, statusCode);
                 return null;
             }
             httpStr = EntityUtils.toString(entity, StandardCharsets.UTF_8);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("请求外部接口异常； url:{} ; json : {}", apiUrl, json, e);
         } finally {
 
         }
@@ -220,5 +229,78 @@ public class HttpClientUtils {
                 .custom()
                 .setSSLSocketFactory(connectionFactory)
                 .build();
+    }
+
+    public static String doGet(String apiUrl, Map<String, String> params) throws Exception {
+        return doGet(apiUrl, params, CONNECT_TIMEOUT, SOCKET_TIMEOUT);
+    }
+
+    public static String doGet(String apiUrl, Map<String, String> params, Integer connectTimeout, Integer socketTimeout) {
+        String result = null;
+        try {
+            URIBuilder uriBuilder = new URIBuilder(apiUrl);
+            /** 第一种添加参数的形式 */
+            /*uriBuilder.addParameter("account", "admin");
+            uriBuilder.addParameter("password", "123456");*/
+            /** 第二种添加参数的形式 */
+            if (params != null && params.size() > 0) {
+                List<NameValuePair> list = new LinkedList<>();
+                for (Map.Entry<String, String> entry :
+                        params.entrySet()) {
+                    BasicNameValuePair param = new BasicNameValuePair(entry.getKey(), entry.getValue());
+                    list.add(param);
+                }
+                uriBuilder.setParameters(list);
+            }
+            HttpGet httpGet = new HttpGet(uriBuilder.build());
+
+            /*
+             * 添加请求头信息
+             */
+            // 传输的类型
+            httpGet.addHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            CloseableHttpClient httpclient = createAcceptSelfSignedCertificateClient();
+
+            CloseableHttpResponse response = null;
+
+            RequestConfig.Builder configBuilder = RequestConfig.custom();
+            // 设置连接超时
+            configBuilder.setConnectTimeout(connectTimeout);
+            // 设置读取超时
+            configBuilder.setSocketTimeout(socketTimeout);
+            // 设置从连接池获取连接实例的超时
+            configBuilder.setConnectionRequestTimeout(MAX_TIMEOUT);
+            RequestConfig requestConfig = configBuilder.build();
+
+            httpGet.setConfig(requestConfig);
+            //这一步才连接URL，请求URL
+            response = httpclient.execute(httpGet);
+            int statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode != HttpStatus.SC_OK) {
+                LOGGER.warn("请求外部接口异常； url:{} ; params : {} ; 响应状态码 : {}", apiUrl, JSONObject.toJSONString(params), statusCode);
+                return null;
+            }
+            HttpEntity entity = response.getEntity();
+            if (entity == null) {
+                LOGGER.warn("请求外部接口异常； url:{} ; params : {} ; 响应状态码 : {} ; 响应实体为空", apiUrl, JSONObject.toJSONString(params), statusCode);
+                return null;
+            }
+            String httpStr = EntityUtils.toString(entity, StandardCharsets.UTF_8);
+            result = StringUtils.decodeUnicode(httpStr);
+        } catch (ClientProtocolException e) {
+            LOGGER.error("请求外部接口异常，Http协议出现问题； url:{} ; params : {}", apiUrl, JSONObject.toJSONString(params), e);
+        } catch (ParseException e) {
+            LOGGER.error("请求外部接口异常，解析错误； url:{} ; params : {}", apiUrl, JSONObject.toJSONString(params), e);
+        } catch (URISyntaxException e) {
+            LOGGER.error("请求外部接口异常，URI解析异常； url:{} ; params : {}", apiUrl, JSONObject.toJSONString(params), e);
+        } catch (IOException e) {
+            LOGGER.error("请求外部接口异常，IO异常； url:{} ; params : {}", apiUrl, JSONObject.toJSONString(params), e);
+        } catch (Exception e) {
+            LOGGER.error("请求外部接口异常； url:{} ; params : {}", apiUrl, JSONObject.toJSONString(params), e);
+        } finally {
+
+        }
+        return result;
     }
 }
