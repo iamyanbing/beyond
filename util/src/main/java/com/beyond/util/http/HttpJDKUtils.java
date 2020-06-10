@@ -1,6 +1,6 @@
 package com.beyond.util.http;
 
-import com.beyond.util.character.StringUtils;
+import com.beyond.util.character.StringLocalUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -180,7 +180,7 @@ public class HttpJDKUtils {
             while ((line = reader.readLine()) != null) {
                 stringBuilder.append(line);
             }
-            String result = StringUtils.decodeUnicode(stringBuilder.toString());
+            String result = StringLocalUtils.decodeUnicode(stringBuilder.toString());
             LOGGER.info("原始结果（包含Unicode）" + stringBuilder.toString());
             LOGGER.info("转换后结果" + result);
             return result;

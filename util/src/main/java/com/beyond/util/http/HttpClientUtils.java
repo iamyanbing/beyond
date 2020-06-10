@@ -1,7 +1,7 @@
 package com.beyond.util.http;
 
 import com.alibaba.fastjson.JSONObject;
-import com.beyond.util.character.StringUtils;
+import com.beyond.util.character.StringLocalUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
@@ -194,7 +194,7 @@ public class HttpClientUtils {
         } finally {
 
         }
-        String result = StringUtils.decodeUnicode(httpStr);
+        String result = StringLocalUtils.decodeUnicode(httpStr);
         return result;
     }
 
@@ -287,7 +287,7 @@ public class HttpClientUtils {
                 return null;
             }
             String httpStr = EntityUtils.toString(entity, StandardCharsets.UTF_8);
-            result = StringUtils.decodeUnicode(httpStr);
+            result = StringLocalUtils.decodeUnicode(httpStr);
         } catch (ClientProtocolException e) {
             LOGGER.error("请求外部接口异常，Http协议出现问题； url:{} ; params : {}", apiUrl, JSONObject.toJSONString(params), e);
         } catch (ParseException e) {

@@ -150,6 +150,26 @@
                 <artifactId>poi-ooxml</artifactId>
                 <version>4.1.0</version>
             </dependency>
+
+            <!-- ================================================= -->
+            <!-- https://mvnrepository.com/artifact/org.openjdk.jol/jol-core -->
+            <!-- JOL = Java Object Layout :java对象布局-->
+            <!-- ================================================= -->
+            <dependency>
+                <groupId>org.openjdk.jol</groupId>
+                <artifactId>jol-core</artifactId>
+                <version>0.10</version>
+            </dependency>
+
+            <!-- ================================================= -->
+            <!-- apache 常用工具包 -->
+            <!-- ================================================= -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.9</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
     <build>

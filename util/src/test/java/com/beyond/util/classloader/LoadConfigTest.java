@@ -1,6 +1,5 @@
 package com.beyond.util.classloader;
 
-import com.beyond.util.character.StringUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 

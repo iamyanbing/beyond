@@ -9,5 +9,6 @@ public class ThreadLocalExplain {
         ThreadLocal threadLocal=new ThreadLocal();
         threadLocal.get();
         threadLocal.set(null);
+        threadLocal.remove();
     }
 }

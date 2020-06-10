@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  * @Auther: yanbing
  * @Date: 2018/6/24 11:07
  */
-public class StringUtils {
+public class StringLocalUtils {
     /**
      * unicode转中文
      *

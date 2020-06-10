@@ -1,5 +1,6 @@
 package com.beyond.util.regex;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -17,6 +18,7 @@ public class CaptureGroupTest {
         CaptureGroup.exeName();
     }
 
+    @Ignore
     @Test
     public void exeNon() throws Exception {
         CaptureGroup.exeNon();

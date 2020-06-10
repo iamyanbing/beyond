@@ -9,11 +9,11 @@ import java.text.ParseException;
  * @Auther: yanbing
  * @Date: 2018/6/30 13:11
  */
-public class StringUtilsTest {
+public class StringLocalUtilsTest {
     @Ignore
     @Test
     public void getUTConvertToCurrentSystemZoneDate() throws ParseException {
-        System.out.println(StringUtils.getStirngValueNull());
+        System.out.println(StringLocalUtils.getStirngValueNull());
         System.out.println(null == null + "");
     }
 
