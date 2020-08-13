@@ -2,7 +2,10 @@ package com.beyond.util.concurrent;
 
 /**
  * 用于看字节码文件
- * monitorenter monitorexit
+ *
+ * 命令： javap -c Sysnchorized
+ *
+ * 指令 ： monitorenter monitorexit
  */
 public class Sysnchorized {
     public synchronized void m() {
