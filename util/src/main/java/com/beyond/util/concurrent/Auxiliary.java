@@ -87,6 +87,7 @@ public class Auxiliary {
     }
 
     /**
+     * 限流（还有guava ratelimiter）
      * Semaphore翻译成字面意思为 信号量，Semaphore可以控同时访问的线程个数，通过 acquire() 获取一个许可，如果没有就等待，而 release() 释放一个许可。
      * <ul>
      * <li>public Semaphore(int permits);参数permits表示许可数目，即同时可以允许多少线程进行访问</li>

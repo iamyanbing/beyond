@@ -6,8 +6,8 @@ import java.util.concurrent.TimeUnit;
 
 public class JOL {
     public static void main(String[] args) throws InterruptedException {
-        exeBiasedLocking();
-//        exeLightweightLocking();
+//        exeBiasedLocking();
+        exeLightweightLocking();
 //        exeLightweightLockingBysleep();
     }
 

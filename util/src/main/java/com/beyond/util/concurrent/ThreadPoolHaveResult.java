@@ -45,7 +45,7 @@ public class ThreadPoolHaveResult {
     public static void executeFuture() {
         ExecutorService executor = Executors.newCachedThreadPool();
         Task task = new Task();
-        Future<Integer> result = executor.submit(task);
+        Future<Integer> result = executor.submit(task);//异步
         executor.shutdown();
 
         try {
@@ -55,7 +55,7 @@ public class ThreadPoolHaveResult {
         }
         LOGGER.info("主线程在执行任务");
         try {
-            LOGGER.info("task运行结果" + result.get());
+            LOGGER.info("task运行结果" + result.get());//阻塞
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -65,15 +65,16 @@ public class ThreadPoolHaveResult {
     }
 
     /**
-     * 可以看出RunnableFuture继承了Runnable接口和Future接口，而FutureTask实现了RunnableFuture接口。所以它既可以作为Runnable被线程执行，又可以作为Future得到Callable的返回值。
+     * 可以看出RunnableFuture继承了Runnable接口和Future接口，而FutureTask实现了RunnableFuture接口。
+     * 所以它既可以作为Runnable被线程执行，又可以作为Future得到Callable的返回值。
      */
     public static void executeFutureTask() {
         //第一种方式,使用ExecutorService
-        //ExecutorService executor = Executors.newCachedThreadPool();
-        //Task task = new Task();
-        //FutureTask<Integer> futureTask = new FutureTask<>(task);
-        //executor.submit(futureTask);
-        //executor.shutdown();
+//        ExecutorService executor = Executors.newCachedThreadPool();
+//        Task task = new Task();
+//        FutureTask<Integer> futureTask = new FutureTask<>(task);
+//        executor.submit(futureTask);
+//        executor.shutdown();
 
         //第二种方式，使用的是Thread。注意这种方式和第一种方式效果是类似的，只不过一个使用的是ExecutorService，一个使用的是Thread
         Task task = new Task();
