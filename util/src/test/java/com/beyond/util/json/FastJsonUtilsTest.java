@@ -52,7 +52,7 @@ public class FastJsonUtilsTest {
                 "]";
     }
 
-    @Ignore
+//    @Ignore
     @Test
     public void getObjectToJson() throws Exception {
         Student student = FastJsonUtils.getObjectByJson(json);

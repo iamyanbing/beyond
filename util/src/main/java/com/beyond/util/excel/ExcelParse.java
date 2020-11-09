@@ -6,6 +6,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 
 /**
@@ -23,8 +25,8 @@ public class ExcelParse {
         InputStream inputStream = ExcelParse.class.getClassLoader().getResourceAsStream("excel/info.xlsx");
 //        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("excel/info.xlsx");
         //第三种方法
-//        File file = new File(fileName);
-//        InputStream in = new FileInputStream(file);
+        File file = new File(fileName);
+        InputStream in = new FileInputStream(file);
         //得到整个excel对象
         XSSFWorkbook xssfWorkbook = new XSSFWorkbook(inputStream);
         //获取整个excel有多少个sheet

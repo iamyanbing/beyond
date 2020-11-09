@@ -180,6 +180,32 @@
                 <version>3.6.2</version>
             </dependency>
 
+            <!-- ================================================= -->
+            <!-- easypoi： 对POI接口进行的封装，简化对excel的操作 -->
+            <!-- 支持对csv的操作 -->
+            <!-- easypoi-annotation 基础注解包,作用与实体对象上,拆分后方便maven多工程的依赖管理 -->
+            <!-- easypoi-base 导入导出的工具包,可以完成Excel导出,导入,Word的导出,Excel的导出功能 -->
+            <!-- easypoi-web 耦合了spring-mvc 基于AbstractView,极大的简化spring-mvc下的导出功能 -->
+            <!-- 如果不使用spring mvc的便捷福利,直接引入easypoi-base 就可以了 -->
+            <!-- http://doc.wupaas.com/docs/easypoi/easypoi-1c10lmghute5a -->
+            <!-- ================================================= -->
+            <dependency>
+                <groupId>cn.afterturn</groupId>
+                <artifactId>easypoi-base</artifactId>
+                <version>4.2.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.afterturn</groupId>
+                <artifactId>easypoi-annotation</artifactId>
+                <version>4.2.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.afterturn</groupId>
+                <artifactId>easypoi-web</artifactId>
+                <version>4.2.0</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>

@@ -8,7 +8,7 @@ import org.junit.Test;
  * @date 2019-09-10 10:01
  */
 public class ExcelParseTest {
-    //    @Ignore
+    @Ignore
     @Test
     public void Lambda() throws Exception {
 //        ExcelParse excelParse=new ExcelParse();
