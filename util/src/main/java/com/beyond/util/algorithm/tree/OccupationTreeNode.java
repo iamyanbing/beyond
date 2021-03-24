@@ -1,4 +1,4 @@
-package com.beyond.util.algorithm;
+package com.beyond.util.algorithm.tree;
 
 import lombok.Data;
 

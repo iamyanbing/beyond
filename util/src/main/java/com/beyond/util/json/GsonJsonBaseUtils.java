@@ -34,6 +34,10 @@ import java.util.Map;
 @Slf4j
 public class GsonJsonBaseUtils {
 
+    public static void main(String[] args) {
+        System.out.println(System.currentTimeMillis());
+    }
+
     /**
      * 简单对象的序列化(toJson方法)
      *
