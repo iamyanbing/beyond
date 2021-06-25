@@ -45,8 +45,14 @@ import java.util.function.Function;
  * 横批：能省则省
  *
  * 二、Lambda 表达式需要“函数式接口”的支持
- * 函数式接口：接口中只有一个抽象方法的接口，称为函数式接口。 可以使用注解 @FunctionalInterface 修饰
+ * 函数式接口：接口中只有一个抽象方法的接口，称为函数式接口（JDK8接口中的静态方法和默认方法，都不算是抽象方法。）。 可以使用注解 @FunctionalInterface 修饰
  * 			 可以检查是否是函数式接口
+ *
+ * 	@FunctionalInterface
+ * 该注解不是必须的，如果一个接口符合”函数式接口”定义，那么加不加该注解都没有影响。加上该注解能够更好地让编译器进行检查。
+ *   如果编写的不是函数式接口，但是加上了@FunctionInterface，那么编译器会报错。
+ * Java 8为函数式接口引入了一个新注解@FunctionalInterface，主要用于编译级错误检查，加上该注解，当你写的接口不符合函数式接口定义的时候，编译器会报错。
+ * 加不加@FunctionalInterface对于接口是不是函数式接口没有影响，该注解只是提醒编译器去检查该接口是否仅包含一个抽象方法
  */
 public class LambdaBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(ForkJoin.class);
