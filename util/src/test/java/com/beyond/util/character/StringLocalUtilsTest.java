@@ -17,4 +17,11 @@ public class StringLocalUtilsTest {
         System.out.println(null == null + "");
     }
 
+    @Ignore
+    @Test
+    public void subChString() throws ParseException {
+        System.out.println(StringLocalUtils.subChString("asd啊啊啊啊啊",0,8));
+        System.out.println(null == null + "");
+    }
+
 }
