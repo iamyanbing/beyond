@@ -140,7 +140,7 @@
             <dependency>
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi</artifactId>
-                <version>4.1.0</version>
+                <version>4.1.1</version>
             </dependency>
             <!-- ================================================= -->
             <!-- poi-ooxml解析 Excel XLSX、PowerPoint PPTX、Word DOCX 、Excel XLS and XLSX 等文件 -->
