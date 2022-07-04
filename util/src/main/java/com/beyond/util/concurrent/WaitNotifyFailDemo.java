@@ -7,6 +7,12 @@ import java.util.concurrent.TimeUnit;
 /**
  * notify并不释放锁，只是唤醒其他线程来竞争锁，当synchronized代码执行完才释放锁。
  *
+ *
+ * 淘宝面试题：实现一个容器，提供两个方法，add、size。
+ * 写两个线程，线程1添加10个元素到容器中，线程2实现监控元素的个数，当个数到5个时，线程2给出提示并结束。
+ *
+ * VolatileDemo、LockSupportDemo、WaitNotifyFailDemo、WaitNotifySuccessDemo一样
+ * 使用技术不一样，所以得到结果也不一样 有的成功 有的失败
  */
 public class WaitNotifyFailDemo {
     //添加volatile，使t2能够得到通知

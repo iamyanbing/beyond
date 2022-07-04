@@ -10,6 +10,13 @@ import java.util.concurrent.locks.LockSupport;
  * LockSupport.unpark(t)：唤醒某个指定线程
  *
  * 使用起来比wait()、condition更灵活
+ *
+ *
+ * 淘宝面试题：实现一个容器，提供两个方法，add、size。
+ * 写两个线程，线程1添加10个元素到容器中，线程2实现监控元素的个数，当个数到5个时，线程2给出提示并结束。
+ *
+ * VolatileDemo、LockSupportDemo、WaitNotifyFailDemo、WaitNotifySuccessDemo一样
+ * 使用技术不一样，所以得到结果也不一样 有的成功 有的失败
  */
 public class LockSupportDemo {
     // 添加volatile，使t2能够得到通知

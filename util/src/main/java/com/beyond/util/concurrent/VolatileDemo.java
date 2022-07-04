@@ -12,6 +12,13 @@ import java.util.List;
  * 结论：在没有把握的情况下不要用volatile，要使用也是用来修饰简单数据类型
  *
  * 对象的内容值变化时，线程之间通信一般使用wait/notify、LockSupport
+ *
+ *
+ * 淘宝面试题：实现一个容器，提供两个方法，add、size。
+ * 写两个线程，线程1添加10个元素到容器中，线程2实现监控元素的个数，当个数到5个时，线程2给出提示并结束。
+ *
+ * VolatileDemo、LockSupportDemo、WaitNotifyFailDemo、WaitNotifySuccessDemo一样
+ * 使用技术不一样，所以得到结果也不一样 有的成功 有的失败
  */
 public class VolatileDemo {
 //        private static volatile boolean flag = true;
