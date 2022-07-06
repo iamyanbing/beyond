@@ -5,6 +5,12 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * 这个ConcurrentHashMap提高效率主要提高在读上面，由于它往里插的时候内部又做了各种各样的判断，
+ * 本来是链表的，到8之后又变成了红黑树，然后里面又做了各种各样的cas的判断，所以他往里插的效率是要更低一些的。
+ *
+ * HashMap和Hashtable虽然说读的效率会稍微低一些，但是它往里插的时候检查的东西特别的少，就加个锁然后往里一插。
+ * 所以，关于效率，还是看你实际当中的需求。本包下用几个简单的小程序来给大家列举了这几个不同的区别。
+ *
  * 相比较其他线程安全的类；ConcurrentHashMap特点：插入慢、获取快
  */
 public class ConcurrentHashMapConcurrentDemo {
