@@ -26,7 +26,7 @@ public class ReentrantLockDemo {
 
         Thread t2 = new Thread(()->{
             try {
-//                lock.lock();
+//                lock.lock();//interrupt()不能中断lock()等待，但是可以中断sleep()。并抛出InterruptedException异常。
                 lock.lockInterruptibly(); //可以通过interrupt()中断等待获取锁
                 System.out.println("t2 start");
                 TimeUnit.SECONDS.sleep(3);
