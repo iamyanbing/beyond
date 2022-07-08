@@ -5,10 +5,12 @@ import java.util.concurrent.SynchronousQueue;
 
 /**
  * 阻塞队列
- * 容量为0;调用add()方法报错
+ * 容量为0（调用add()方法会报错）
+ * SynchronousQueue不是用来装内容的，是专门用来两个线程之间传内容的。
  * 使用场景：用来给其他线程下达任务
  * 和Exchange类概念类似
  *
+ * 在线程池中使用较多，线程取任务，互相之间进行调度，就是用的SynchronousQueue。
  */
 public class SynchronusQueueConcurrentDemo {
     public static void main(String[] args) throws InterruptedException {

@@ -7,9 +7,23 @@ import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 阻塞队列
+ * 是BlockingQueue的一种
+ * 也是阻塞队列
  *
- * 底层实现是用PriorityQueue
+ * DelayQueue可以实现在时间上的排序
+ *
+ * 这个阻塞队列装任务的时候要求必须实现Delayed接口，
+ * Delayed需要做一个比较compareTo，时间等待越短的就会优先得到运行，实现Comparable接口重写 compareTo方法来确定你这个任务之间是怎么排序的。
+ * getDelay去拿到你Delay多长时间了。
+ *
+ * DelayQueueConcurrentDemo代码逻辑：
+ * 往里头装任务的时候首先拿到当前时间，在当前时间的基础之上指定在多长时间之后这个任务要运行。
+ * 但是当我们去拿的时候，一般的队列是先进先出。这个队列是不一样的，按时间进行排序（按紧迫程度进行排序）。
+ *
+ * 使用场景：
+ * DelayQueue就是按照时间进行任务调度。
+ *
+ * DelayQueue本质上用的是PriorityQueue；底层实现是用PriorityQueue
  */
 public class DelayQueueConcurrentDemo {
 
