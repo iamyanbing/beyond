@@ -84,7 +84,7 @@ public class LockSupportDemo {
         t.start();
 
         //unpark(t)可以先于park()调用，再调用park()时则不会阻塞。
-        //使用场景：当某个状态改变是，可以先调用unpark(t),让后面线程中调用park()不在阻塞
+        //使用场景：当某个状态改变时，可以先调用unpark(t),让后面线程中调用park()不在阻塞
         LockSupport.unpark(t);
 
 //        try {

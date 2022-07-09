@@ -12,7 +12,7 @@ public class LinkedTransferQueuePrintDemo {
         new Thread(()->{
             try {
                 for (char c : aI) {
-                    System.out.print(queue.take());
+                    System.out.print(queue.take());//该线程获取第二个线程入队列的数据，然后打印
                     queue.transfer(c);
                 }
 
@@ -25,7 +25,7 @@ public class LinkedTransferQueuePrintDemo {
             try {
                 for (char c : aC) {
                     queue.transfer(c);
-                    System.out.print(queue.take());
+                    System.out.print(queue.take());//该线程获取第一个线程入队列的数据，然后打印
                 }
 
             } catch (InterruptedException e) {

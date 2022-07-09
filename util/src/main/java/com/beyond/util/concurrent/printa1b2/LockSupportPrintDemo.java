@@ -2,6 +2,11 @@ package com.beyond.util.concurrent.printa1b2;
 
 import java.util.concurrent.locks.LockSupport;
 
+/**
+ * unpark(t)可以先于park()调用，再调用park()时则不会阻塞。
+ *
+ * SyncWaitNotifyPrintDemo、LockSupportPrintDemo必须掌握
+ */
 public class LockSupportPrintDemo {
 
     static Thread t1 = null, t2 = null;

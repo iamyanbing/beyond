@@ -9,9 +9,12 @@ import java.util.concurrent.TimeUnit;
 /**
  * 假设你能提供一个服务
  * 这个服务查询各大电商网站同一类产品的价格并汇总展示
- * 比如在自己网站上展示京东、天猫等电商平台同一类商品价格
+ * 比如在自己网站上展示京东、天猫等电商平台同一类商品价格。eg：查询iphone在天猫、京东上的价格，并展示在自己网站上。
  *
  * 面试不问，作为了解
+ *
+ * CompletableFuture，管理多个Future的结果。
+ * CompletableFuture他的底层用的是ForkJoinPool。
  */
 public class CompletableFutureDemo {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
@@ -20,7 +23,7 @@ public class CompletableFutureDemo {
         /*start = System.currentTimeMillis();
 
         priceOfTM();
-        priceOfTB();
+        priceOfTB();//问题：priceOfTB()执行有异常，或者该方法执行很慢。
         priceOfJD();
 
         end = System.currentTimeMillis();
