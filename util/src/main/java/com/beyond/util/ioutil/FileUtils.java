@@ -4,6 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * @Auther: yanbing
@@ -28,5 +32,18 @@ public class FileUtils {
         LOGGER.info("file.getAbsolutePath()    :" + file.getAbsolutePath());
         LOGGER.info("file.getCanonicalPath()   :" + file.getCanonicalPath());
         LOGGER.info("file.getParent()          :" + file.getParent());
+    }
+
+    /**
+     * 获取文件MIME
+     * @throws Exception
+     */
+    public static void probeContentType(String filePath) {
+        Path path = Paths.get(filePath);
+        try {
+            LOGGER.info(Files.probeContentType(path));
+        } catch (IOException e) {
+            LOGGER.error("获取文件MIME类型失败,文件路径:{}, 异常信息:{}", filePath, e.getMessage());
+        }
     }
 }
